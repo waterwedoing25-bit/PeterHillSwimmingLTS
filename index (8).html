@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Peter Hill Swimming</title>
+
+<!-- ===== This page is the one that actually controls the tab favicon ===== -->
+<!-- ===== and the Add to Home Screen icon, since it's a real top-level  ===== -->
+<!-- ===== page (unlike Index.html, which Apps Script serves inside an  ===== -->
+<!-- ===== iframe it wraps with its own page).                          ===== -->
+<link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1dp5d8laT4CGShz-z69Q5y3dDYsfbORJA">
+<link rel="shortcut icon" type="image/png" href="https://lh3.googleusercontent.com/d/1dp5d8laT4CGShz-z69Q5y3dDYsfbORJA">
+<link rel="apple-touch-icon" href="https://lh3.googleusercontent.com/d/1dp5d8laT4CGShz-z69Q5y3dDYsfbORJA">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f2a45">
+
+<!-- iOS-specific "add to home screen" hints -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="PHS Tracker">
+
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    font-family: -apple-system, 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #0f2a45 0%, #081a2b 100%);
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+  }
+  img {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.3);
+  }
+  h1 {
+    font-size: 1.1em;
+    margin: 0;
+    font-weight: 700;
+  }
+  p {
+    margin: 0;
+    font-size: 0.85em;
+    color: rgba(255,255,255,0.7);
+  }
+  .spinner {
+    width: 28px;
+    height: 28px;
+    border: 3px solid rgba(255,255,255,0.25);
+    border-top-color: #ff7a45;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  a.fallback {
+    margin-top: 10px;
+    color: #ff9c6f;
+    font-size: 0.85em;
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+  <img src="https://lh3.googleusercontent.com/d/1dp5d8laT4CGShz-z69Q5y3dDYsfbORJA" alt="Peter Hill Swimming">
+  <h1>Peter Hill Swimming</h1>
+  <div class="spinner"></div>
+  <p>Opening the Progress Tracker...</p>
+  <a id="fallbackLink" class="fallback" href="#" style="display:none;">Tap here if it doesn't open automatically</a>
+
+  <script>
+    // ⚠️ Replace this with your actual Apps Script web app URL
+    // (the one ending in /exec from Deploy → Manage deployments)
+    const APP_URL = 'https://script.google.com/macros/s/AKfycbxmA72wI6irZM6BnyIlzuXI4fvFmB2LsgBdmcyIg62gTqOh0hvAuQfFzvOu7nP65vwXxQ/exec';
+
+    document.getElementById('fallbackLink').href = APP_URL;
+
+    // Redirect straight into the real app. Using replace() so this launcher
+    // page doesn't sit in the browser's back-button history.
+    window.location.replace(APP_URL);
+
+    // Safety net: if the redirect is ever blocked, reveal a manual link
+    // instead of leaving the visitor stuck on a spinner forever.
+    setTimeout(function () {
+      document.getElementById('fallbackLink').style.display = 'inline-block';
+    }, 2500);
+  </script>
+</body>
+</html>

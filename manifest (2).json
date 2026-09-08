@@ -1,0 +1,20 @@
+{
+  "name": "Peter Hill Swimming - Progress Tracker",
+  "short_name": "PHS Tracker",
+  "start_url": "https://script.google.com/macros/s/AKfycbxmA72wI6irZM6BnyIlzuXI4fvFmB2LsgBdmcyIg62gTqOh0hvAuQfFzvOu7nP65vwXxQ/exec",
+  "display": "standalone",
+  "background_color": "#0f2a45",
+  "theme_color": "#0f2a45",
+  "icons": [
+    {
+      "src": "https://lh3.googleusercontent.com/d/1dp5d8laT4CGShz-z69Q5y3dDYsfbORJA",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://lh3.googleusercontent.com/d/1dp5d8laT4CGShz-z69Q5y3dDYsfbORJA",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

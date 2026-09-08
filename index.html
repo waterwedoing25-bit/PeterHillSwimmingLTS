@@ -52,46 +52,61 @@
     font-size: 0.85em;
     color: rgba(255,255,255,0.7);
   }
-  .spinner {
-    width: 28px;
-    height: 28px;
-    border: 3px solid rgba(255,255,255,0.25);
-    border-top-color: #ff7a45;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  a.fallback {
-    margin-top: 10px;
-    color: #ff9c6f;
-    font-size: 0.85em;
-    text-decoration: underline;
-  }
 </style>
 </head>
 <body>
   <img src="https://lh3.googleusercontent.com/d/1dp5d8laT4CGShz-z69Q5y3dDYsfbORJA" alt="Peter Hill Swimming">
   <h1>Peter Hill Swimming</h1>
-  <div class="spinner"></div>
-  <p>Opening the Progress Tracker...</p>
-  <a id="fallbackLink" class="fallback" href="#" style="display:none;">Tap here if it doesn't open automatically</a>
+  <p id="statusText" style="max-width:280px; line-height:1.5;">
+    <strong>First time here?</strong> Add this page to your Home Screen now
+    (Share → Add to Home Screen), before it opens the app below — that's
+    what makes the icon come out right.
+  </p>
+  <button id="openBtn" style="
+    background: linear-gradient(135deg, #ff7a45, #e8622e);
+    color: #fff;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 30px;
+    font-size: 0.95em;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 6px;
+  ">Open App →</button>
+  <p style="font-size:0.72em; color:rgba(255,255,255,0.5); margin-top:4px;" id="countdownText"></p>
 
   <script>
     // ⚠️ Replace this with your actual Apps Script web app URL
     // (the one ending in /exec from Deploy → Manage deployments)
     const APP_URL = 'https://script.google.com/macros/s/AKfycbxmA72wI6irZM6BnyIlzuXI4fvFmB2LsgBdmcyIg62gTqOh0hvAuQfFzvOu7nP65vwXxQ/exec';
 
-    document.getElementById('fallbackLink').href = APP_URL;
+    document.getElementById('openBtn').addEventListener('click', function () {
+      window.location.href = APP_URL;
+    });
 
-    // Redirect straight into the real app. Using replace() so this launcher
-    // page doesn't sit in the browser's back-button history.
-    window.location.replace(APP_URL);
-
-    // Safety net: if the redirect is ever blocked, reveal a manual link
-    // instead of leaving the visitor stuck on a spinner forever.
-    setTimeout(function () {
-      document.getElementById('fallbackLink').style.display = 'inline-block';
-    }, 2500);
+    // Auto-forward after a delay — long enough that tapping Share → Add to
+    // Home Screen right after the page loads still captures THIS page (and
+    // its icon), not the app it redirects to. Once installed, opening the
+    // saved icon will briefly show this screen before moving on, same as
+    // clicking the button manually.
+    let secondsLeft = 6;
+    const countdownEl = document.getElementById('countdownText');
+    const tick = () => {
+      countdownEl.textContent = secondsLeft > 0
+        ? 'Opening automatically in ' + secondsLeft + '...'
+        : '';
+      secondsLeft--;
+    };
+    tick();
+    const timer = setInterval(function () {
+      if (secondsLeft < 0) {
+        clearInterval(timer);
+        window.location.href = APP_URL;
+        return;
+      }
+      tick();
+    }, 1000);
   </script>
 </body>
 </html>
